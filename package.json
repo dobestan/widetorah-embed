@@ -1,0 +1,38 @@
+{
+  "name": "widetorah-embed",
+  "version": "1.0.0",
+  "description": "Embed WideTorah scripture widgets on any website. Lightweight (~5KB gzipped), zero dependencies, Shadow DOM isolation, 3 themes (light/dark/sepia).",
+  "main": "dist/embed.min.js",
+  "module": "dist/embed.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "judaism",
+    "embed",
+    "widget",
+    "scripture",
+    "widetorah",
+    "widetorah.com",
+    "verse",
+    "api",
+    "shadow-dom",
+    "zero-dependencies"
+  ],
+  "homepage": "https://widget.widetorah.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dobestan/widetorah-embed"
+  },
+  "bugs": {
+    "url": "https://github.com/dobestan/widetorah-embed/issues"
+  },
+  "license": "MIT",
+  "author": "WideHoly <hello@wideholy.com>",
+  "publishConfig": {
+    "access": "public"
+  }
+}
