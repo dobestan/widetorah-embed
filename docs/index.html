@@ -13,11 +13,6 @@
   <meta property="og:url" content="https://widget.widetorah.com">
   <meta property="og:type" content="website">
 
-  <!-- Fonts: Literata (scripture demos) + Geist Sans (UI) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&family=Geist:wght@400;500;600;700&display=swap">
-
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,10 +21,6 @@
         extend: {
           colors: {
             accent: '#2563EB',
-          },
-          fontFamily: {
-            sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
-            serif: ['Literata', 'Georgia', 'Times New Roman', 'serif'],
           }
         }
       }
@@ -39,60 +30,10 @@
   <!-- Alpine.js CDN -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://widget.widetorah.com/">
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://widetorah.com/favicon.ico" sizes="32x32">
-
-  <!-- Additional OG tags -->
-  <meta property="og:site_name" content="WideTorah Embed">
-  <meta property="og:image" content="https://cdn.widetorah.com/og/widetorah-white-card.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="WideTorah Embed Widget">
-  <meta name="twitter:description" content="Embed Torah widgets on any website.">
-
-  <!-- JSON-LD Schema -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "WideTorah Embed Widget",
-  "url": "https://widget.widetorah.com/",
-  "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "creator": {
-    "@type": "Organization",
-    "name": "WideHoly",
-    "url": "https://wideholy.com"
-  },
-  "description": "Embed WideTorah scripture widgets on any website. Zero dependencies, Shadow DOM isolation, 3 themes."
-}
-  </script>
-
-  <!-- Robots -->
-  <meta name="robots" content="index, follow">
-
-  <!-- Embed script via jsDelivr CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/widetorah-embed@1/dist/embed.min.js"></script>
+  <!-- Embed script (self, for dogfooding demos) -->
+  <script src="./dist/embed.min.js"></script>
 
   <style>
-    /* WideHoly Design System — Scripture Ribbon Signature */
-    .scripture-ribbon {
-      border-left: 4px solid #2563EB;
-      padding-left: 1rem;
-    }
-    [x-cloak] { display: none !important; }
-    /* Dark mode FOUC prevention */
-    .dark { color-scheme: dark; }
-
     :root { --accent: #2563EB; }
     .accent-text { color: var(--accent); }
     .accent-bg { background-color: var(--accent); }
@@ -116,14 +57,23 @@
 <body class="bg-gray-50 text-gray-900 antialiased" x-data="app()">
 
   <!-- ─── HEADER ────────────────────────────────────────── -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-200">
-    <div class="max-w-5xl mx-auto px-4 flex items-center justify-between h-14">
-      <a href="/" class="text-lg font-bold" style="color: #2563EB;">WideTorah Embed</a>
-      <nav class="hidden md:flex items-center gap-4 text-sm">
-        <a href="#widgets" class="text-gray-600 hover:text-gray-900">Widgets</a>
-        <a href="#themes" class="text-gray-600 hover:text-gray-900">Themes</a>
-        <a href="#reference" class="text-gray-600 hover:text-gray-900">API</a>
-        <a href="https://widetorah.com" class="text-gray-600 hover:text-gray-900">&larr; WideTorah</a>
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <a href="https://widetorah.com" class="flex items-center gap-2 font-bold text-lg" style="color: #2563EB">
+        <span>WideTorah</span>
+        <span class="text-xs font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">Embed</span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-6 text-sm text-gray-600">
+        <a href="#widgets" class="hover:text-gray-900">Widgets</a>
+        <a href="#playground" class="hover:text-gray-900">Playground</a>
+        <a href="#themes" class="hover:text-gray-900">Themes</a>
+        <a href="#install" class="hover:text-gray-900">Install</a>
+        <a href="#reference" class="hover:text-gray-900">Reference</a>
+        <a href="https://widetorah.com" target="_blank" rel="noopener"
+           class="px-3 py-1.5 rounded-md text-white text-sm font-medium"
+           style="background: #2563EB">
+          Visit WideTorah →
+        </a>
       </nav>
     </div>
   </header>
@@ -132,21 +82,18 @@
   <section class="bg-white border-b border-gray-100 py-16 sm:py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 items-center">
       <div>
-        <!-- Scripture ribbon signature -->
-        <div class="scripture-ribbon mb-8">
-          <p class="font-serif text-xl text-gray-700 italic">"In the beginning God created the heaven and the earth."</p>
-          <span class="text-sm font-mono" style="color: #2563EB;">Genesis 1:1</span>
-        </div>
         <div class="inline-flex items-center gap-2 text-sm font-medium px-3 py-1 rounded-full mb-6"
              style="background: color-mix(in srgb, #2563EB 10%, white); color: #2563EB">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           Zero Dependencies · ~5KB · Shadow DOM
         </div>
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">
-          Add <span style="color: #2563EB">WideTorah</span> to<br>
-          Any Website
+          Embed Torah on<br>
+          <span style="color: #2563EB">Any Website</span>
         </h1>
-        <p class="text-xl text-gray-500 mb-8">Embed scripture widgets in one line of HTML. Zero dependencies.</p>
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          Add WideTorah verse cards, chapter summaries, daily verses, and search to any website with a single line of HTML. No build tools. No dependencies.
+        </p>
         <div class="flex flex-wrap gap-3">
           <a href="#install"
              class="px-5 py-2.5 rounded-lg text-white font-medium text-sm"
@@ -475,38 +422,56 @@ import 'widetorah-embed';
   </section>
 
   <!-- ─── FOOTER ─────────────────────────────────────── -->
-  <footer class="bg-gray-900 text-gray-300 mt-16">
-    <div class="max-w-5xl mx-auto px-4 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
         <div>
-          <h3 class="font-bold text-white mb-3">WideTorah Embed</h3>
-          <p class="text-sm text-gray-400">Embeddable scripture widgets for developers.</p>
-        </div>
-        <div>
-          <h3 class="font-bold text-white mb-3">Scripture Widget Sites</h3>
-          <div class="space-y-1 text-sm">
-            <a href="https://widget.widebible.com" class="block hover:text-white">WideBible Embed</a>
-            <a href="https://widget.widequran.com" class="block hover:text-white">WideQuran Embed</a>
-            <a href="https://widget.widetorah.com" class="block hover:text-white">WideTorah Embed</a>
-            <a href="https://widget.widegita.com" class="block hover:text-white">WideGita Embed</a>
-            <a href="https://widget.widesutra.com" class="block hover:text-white">WideSutra Embed</a>
-            <a href="https://widget.wideholy.com" class="block hover:text-white">WideHoly Embed</a>
+          <h4 class="font-bold text-white mb-3">WideTorah Embed</h4>
+          <p class="text-sm text-gray-400 leading-relaxed mb-4">
+            Lightweight Torah widgets for any website. Part of the WideHoly scripture platform.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://github.com/dobestan/widetorah-embed"
+               target="_blank" rel="noopener"
+               class="text-xs text-gray-400 hover:text-white">GitHub</a>
+            <a href="https://www.npmjs.com/package/widetorah-embed"
+               target="_blank" rel="noopener"
+               class="text-xs text-gray-400 hover:text-white">npm</a>
+            <a href="https://widetorah.com/developers/"
+               target="_blank" rel="noopener"
+               class="text-xs text-gray-400 hover:text-white">API Docs</a>
           </div>
         </div>
         <div>
-          <h3 class="font-bold text-white mb-3">Main Sites</h3>
-          <div class="space-y-1 text-sm">
-            <a href="https://widebible.com" class="block hover:text-white">WideBible</a>
-            <a href="https://widequran.com" class="block hover:text-white">WideQuran</a>
-            <a href="https://widetorah.com" class="block hover:text-white">WideTorah</a>
-            <a href="https://widegita.com" class="block hover:text-white">WideGita</a>
-            <a href="https://widesutra.com" class="block hover:text-white">WideSutra</a>
-            <a href="https://wideholy.com" class="block hover:text-white">WideHoly</a>
+          <h4 class="font-bold text-white mb-3">WideHoly — Scripture for Everyone</h4>
+          <div class="grid grid-cols-2 gap-1">
+            <a href="https://widebible.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideBible</a>
+            <a href="https://widequran.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideQuran</a>
+            <a href="https://widetorah.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideTorah</a>
+            <a href="https://widegita.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideGita</a>
+            <a href="https://widesutra.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideSutra</a>
+            <a href="https://wideholy.com" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 hover:text-white py-0.5">WideHoly</a>
           </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-white mb-3">Quick Links</h4>
+          <ul class="space-y-1.5">
+            <li><a href="https://widetorah.com" target="_blank" rel="noopener" class="text-sm text-gray-400 hover:text-white">Visit WideTorah</a></li>
+            <li><a href="https://widetorah.com/developers/" target="_blank" rel="noopener" class="text-sm text-gray-400 hover:text-white">REST API Docs</a></li>
+            <li><a href="https://widetorah.com/api/openapi.json" target="_blank" rel="noopener" class="text-sm text-gray-400 hover:text-white">OpenAPI 3.1 Spec</a></li>
+            <li><a href="https://cdn.jsdelivr.net/npm/widetorah-embed@1/dist/embed.min.js" target="_blank" rel="noopener" class="text-sm text-gray-400 hover:text-white">embed.min.js (jsDelivr)</a></li>
+          </ul>
         </div>
       </div>
-      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-        &copy; 2026 <a href="https://wideholy.com" class="hover:text-white">WideHoly</a>. All rights reserved.
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-gray-500">
+        <span>© <span x-text="new Date().getFullYear()"></span> WideHoly. MIT License.</span>
+        <span>Built with ❤️ for the web. <a href="https://wideholy.com" class="hover:text-gray-300">wideholy.com</a></span>
       </div>
     </div>
   </footer>

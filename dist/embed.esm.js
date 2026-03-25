@@ -518,6 +518,31 @@ function bindCopyButton(btn, text) {
   });
 }
 
+// src/rich-snippets.ts
+function injectQuotation(data, domain, siteName) {
+  if (document.querySelector("script[data-wide-snippet]")) return;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Quotation",
+    text: data.text,
+    spokenByCharacter: data.reference,
+    isPartOf: {
+      "@type": "Book",
+      name: data.book
+    },
+    contributor: {
+      "@type": "Organization",
+      name: siteName,
+      url: `https://${domain}`
+    }
+  };
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.setAttribute("data-wide-snippet", "true");
+  script.textContent = JSON.stringify(jsonLd);
+  document.head.appendChild(script);
+}
+
 // src/widgets/verse.ts
 function parseRef(ref) {
   const withBook = ref.match(/^(.+?)\s+(\d+):(\d+)$/);
@@ -595,6 +620,20 @@ function initVerseWidget(el, config) {
     const verse = "results" in data && Array.isArray(data.results) ? data.results[0] : data;
     if (!verse || !verse.text) throw new Error("No verse found");
     renderVerseWidget(container, verse, el, config);
+    if (el.dataset.noSnippet !== "true") {
+      const parsed = parseRef(verse.reference || ref);
+      const bookName = (parsed == null ? void 0 : parsed.book) || verse.book || config.scriptureLabel;
+      injectQuotation(
+        {
+          text: verse.text,
+          reference: verse.reference || ref,
+          translation: verse.translation || config.defaultTranslation,
+          book: bookName
+        },
+        config.domain,
+        config.name
+      );
+    }
   }).catch(() => {
     renderError(
       container,
