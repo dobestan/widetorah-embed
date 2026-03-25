@@ -937,6 +937,66 @@ function initSearchWidget(el, config) {
   `;
 }
 
+// src/web-components.ts
+function makeWidgetElement(widgetType, initFn, domainAttrs) {
+  const observed = [...domainAttrs, "theme", "style-variant", "size", "show-original"];
+  return class extends HTMLElement {
+    static get observedAttributes() {
+      return observed;
+    }
+    connectedCallback() {
+      if (this.shadowRoot) return;
+      this._syncDataAttrs();
+      initFn(this, define_SITE_CONFIG_default);
+    }
+    attributeChangedCallback(_name, oldVal, newVal) {
+      if (oldVal === newVal) return;
+      if (!this.shadowRoot) return;
+      const shadow = this.shadowRoot;
+      while (shadow.firstChild) shadow.firstChild.remove();
+      this._syncDataAttrs();
+      initFn(this, define_SITE_CONFIG_default);
+    }
+    /**
+     * Bridge element attributes → data-* attributes so the existing widget
+     * init functions (which read from dataset) work unchanged.
+     */
+    _syncDataAttrs() {
+      const attrKey = define_SITE_CONFIG_default.attribute.replace("data-", "");
+      this.dataset[attrKey] = widgetType;
+      for (const a of domainAttrs) {
+        const val = this.getAttribute(a);
+        if (val !== null) this.dataset[a] = val;
+      }
+      const theme = this.getAttribute("theme");
+      if (theme !== null) this.dataset.theme = theme;
+      const styleVariant = this.getAttribute("style-variant");
+      if (styleVariant !== null) this.dataset.style = styleVariant;
+      const size = this.getAttribute("size");
+      if (size !== null) this.dataset.size = size;
+      const showOriginal = this.getAttribute("show-original");
+      if (showOriginal !== null) this.dataset.showOriginal = showOriginal;
+    }
+  };
+}
+function registerWideElements() {
+  if (typeof customElements === "undefined") return;
+  const definitions = [
+    ["wide-verse", "verse", initVerseWidget, ["ref", "translation", "show-original"]],
+    ["wide-chapter", "chapter", initChapterWidget, ["ref"]],
+    ["wide-person", "person", initPersonWidget, ["slug"]],
+    ["wide-compare", "compare", initCompareWidget, ["a", "b"]],
+    ["wide-votd", "votd", initVotdWidget, []],
+    ["wide-search", "search", initSearchWidget, ["placeholder"]]
+  ];
+  for (const [tagName, widgetType, initFn, attrs] of definitions) {
+    if (!customElements.get(tagName)) {
+      customElements.define(tagName, makeWidgetElement(widgetType, initFn, attrs));
+    }
+  }
+}
+registerWideElements();
+
 // src/core.ts
 function initWidget(el, type, config) {
   switch (type) {

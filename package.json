@@ -1,6 +1,6 @@
 {
   "name": "widetorah-embed",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Embed WideTorah scripture widgets on any website. Lightweight (~5KB gzipped), zero dependencies, Shadow DOM isolation, 3 themes (light/dark/sepia).",
   "main": "dist/embed.min.js",
   "module": "dist/embed.esm.js",
