@@ -1,21 +1,50 @@
 # WideTorah Embed Widget
 
-> Embeddable WideTorah widgets for any website. Zero dependencies, Shadow DOM isolation, 4 themes (light/dark/sepia/auto).
+> Scripture platform. Embeddable widgets for any website. Zero dependencies, Shadow DOM isolation.
 
 ## Quick Start
 
-Add to any HTML page:
-- Script: <script src="https://cdn.jsdelivr.net/npm/widetorah-embed@1/dist/embed.min.js"></script>
+```html
+<script src="https://cdn.jsdelivr.net/npm/widetorah-embed@1/dist/embed.min.js"></script>
+<div data-widetorah="verse" data-slug="example"></div>
+```
+
+## Available Widget Types (6)
+
+- verse: `data-widetorah="verse"`
+- chapter: `data-widetorah="chapter"`
+- compare: `data-widetorah="compare"`
+- person: `data-widetorah="person"`
+- search: `data-widetorah="search"`
+- votd: `data-widetorah="votd"`
+
+## Customization
+
+- **Themes**: light, dark, sepia, auto (follows system preference)
+- **Sizes**: compact (280px), default (420px), large (720px)
+- **Styles**: modern, classic
+
+```html
+<div data-widetorah="verse" data-slug="example"
+     data-theme="auto" data-size="compact" data-style-variant="modern"></div>
+```
+
+## Integration Methods
+
+1. **Script tag** (recommended): `<script src="https://cdn.jsdelivr.net/npm/widetorah-embed@1/dist/embed.min.js"></script>`
+2. **iframe**: `https://widetorah.com/iframe/entity/{slug}/`
+3. **oEmbed**: `https://widetorah.com/oembed?url={page_url}&format=json`
+4. **Badge**: `https://widetorah.com/badge/site.svg`
 
 ## Links
 
 - Main site: https://widetorah.com
 - Widget docs: https://widget.widetorah.com
-- npm: https://www.npmjs.com/package/widetorah-embed
-- GitHub: https://github.com/dobestan/widetorah-embed
-- API: https://widetorah.com/developers/
+- API documentation: https://widetorah.com/developers/
+- npm package: https://www.npmjs.com/package/widetorah-embed
+- GitHub: https://github.com/fyipedia/widetorah-embed
 
-## WideHoly Widget Family
+## WideHoly Widget Network
 
 - [WideHoly Widget](https://widget.wideholy.com)
 - [WideBible Widget](https://widget.widebible.com)
