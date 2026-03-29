@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# WideTorah Embed Widget
+# Main site: https://widetorah.com
+# Widget docs: https://widget.widetorah.com
+# npm: https://www.npmjs.com/package/widetorah-embed
